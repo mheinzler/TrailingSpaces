@@ -184,6 +184,11 @@ def match_trailing_spaces(view):
 #
 # Returns True if the view should be ignored, False otherwise.
 def ignore_view(view):
+    # ignore the build output view
+    exec_view = view.window() and view.window().find_output_panel("exec")
+    if exec_view and view.id() == exec_view.id():
+        return True
+
     view_syntax = view.settings().get('syntax')
 
     if not view_syntax:
