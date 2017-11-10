@@ -119,6 +119,12 @@ def find_trailing_spaces(view):
                                                 DEFAULT_IS_ENABLED))
     regexp = ts_settings.get("trailing_spaces_regexp") + "$"
 
+    # use a special regex based on the files indentation settings
+    if view.settings().get('translate_tabs_to_spaces'):
+        regexp = ts_settings.get("trailing_spaces_regexp_spaces") or regexp
+    else:
+        regexp = ts_settings.get("trailing_spaces_regexp_tabs") or regexp
+
     if not include_empty_lines:
         regexp = "(?<=\\S)%s$" % regexp
 
