@@ -195,6 +195,10 @@ def ignore_view(view):
     if exec_view and view.id() == exec_view.id():
         return True
 
+    if ts_settings.get('trailing_spaces_ignore_read_only', True):
+        if view.is_read_only():
+            return True
+
     view_syntax = view.settings().get('syntax')
 
     if not view_syntax:
